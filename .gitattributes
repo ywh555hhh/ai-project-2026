@@ -1,0 +1,8 @@
+* text=auto eol=lf
+
+# The course starter must stay byte-exact: nsc-starter/check_starter.py
+# verifies raw SHA-256 of nsc-starter/data/*.json against provenance.json.
+# With core.autocrlf=true on Windows, CRLF conversion would break those hashes.
+nsc-starter/** -text
+nsc-starter/* -text
+nsc-starter/data/* -text

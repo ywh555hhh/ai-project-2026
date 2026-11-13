@@ -1,7 +1,8 @@
-numpy>=1.24
-pandas>=2.0
-scipy>=1.10
-scikit-learn>=1.3
-matplotlib>=3.7
-tqdm>=4.66
-pyyaml>=6.0
+# CS5491 NSC project — core harness (nsc-starter/) is Python 3.9+ standard
+# library only. There is nothing to install to run check_starter.py or
+# evaluate.py; no training, GPU, model download or LLM API is involved.
+#
+# Optional, only if we later add report figures or extra analysis on top of the
+# supplied harness — do NOT make the core scorer depend on these:
+# numpy>=1.24
+# matplotlib>=3.7
