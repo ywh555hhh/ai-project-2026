@@ -1,0 +1,2186 @@
+{
+  "case_count": 33,
+  "cases": [
+    {
+      "case_id": "toy_ffn_order",
+      "family": "toy_pair",
+      "note": "Two-layer teaching pair from the starter README; both orders have identical projection weights and reference MACs, so additive NSC cannot separate them.",
+      "source_config": null,
+      "variants": {
+        "ffn_256_512": {
+          "d_inner": [
+            256,
+            512
+          ],
+          "d_model": 128,
+          "n_head": [
+            4,
+            4
+          ],
+          "n_layer": 2
+        },
+        "ffn_512_256": {
+          "d_inner": [
+            512,
+            256
+          ],
+          "d_model": 128,
+          "n_head": [
+            4,
+            4
+          ],
+          "n_layer": 2
+        }
+      }
+    },
+    {
+      "case_id": "config_11_j1__ffn_reversed_fixed_heads",
+      "family": "ffn_reversed_fixed_heads",
+      "hidden_width": 64,
+      "note": "Permute FFN widths, keep head counts: probes positional sensitivity.",
+      "source_config": "config_11_j1",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1058,
+            1951,
+            2022,
+            626,
+            804,
+            1489,
+            759,
+            795,
+            1011,
+            533
+          ],
+          "d_model": 64,
+          "n_head": [
+            8,
+            8,
+            2,
+            4,
+            8,
+            8,
+            8,
+            2,
+            4,
+            8
+          ],
+          "n_layer": 10
+        },
+        "reordered": {
+          "d_inner": [
+            533,
+            1011,
+            795,
+            759,
+            1489,
+            804,
+            626,
+            2022,
+            1951,
+            1058
+          ],
+          "d_model": 64,
+          "n_head": [
+            8,
+            8,
+            2,
+            4,
+            8,
+            8,
+            8,
+            2,
+            4,
+            8
+          ],
+          "n_layer": 10
+        }
+      }
+    },
+    {
+      "case_id": "config_11_j1__ffn_rotated_fixed_heads",
+      "family": "ffn_rotated_fixed_heads",
+      "hidden_width": 64,
+      "note": "A second FFN permutation with fixed heads.",
+      "source_config": "config_11_j1",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1058,
+            1951,
+            2022,
+            626,
+            804,
+            1489,
+            759,
+            795,
+            1011,
+            533
+          ],
+          "d_model": 64,
+          "n_head": [
+            8,
+            8,
+            2,
+            4,
+            8,
+            8,
+            8,
+            2,
+            4,
+            8
+          ],
+          "n_layer": 10
+        },
+        "reordered": {
+          "d_inner": [
+            1951,
+            2022,
+            626,
+            804,
+            1489,
+            759,
+            795,
+            1011,
+            533,
+            1058
+          ],
+          "d_model": 64,
+          "n_head": [
+            8,
+            8,
+            2,
+            4,
+            8,
+            8,
+            8,
+            2,
+            4,
+            8
+          ],
+          "n_layer": 10
+        }
+      }
+    },
+    {
+      "case_id": "config_11_j1__heads_reversed_fixed_ffn",
+      "family": "heads_reversed_fixed_ffn",
+      "hidden_width": 64,
+      "note": "Permute attention head counts, keep FFN widths: isolates the attention-prefix effect.",
+      "source_config": "config_11_j1",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1058,
+            1951,
+            2022,
+            626,
+            804,
+            1489,
+            759,
+            795,
+            1011,
+            533
+          ],
+          "d_model": 64,
+          "n_head": [
+            8,
+            8,
+            2,
+            4,
+            8,
+            8,
+            8,
+            2,
+            4,
+            8
+          ],
+          "n_layer": 10
+        },
+        "reordered": {
+          "d_inner": [
+            1058,
+            1951,
+            2022,
+            626,
+            804,
+            1489,
+            759,
+            795,
+            1011,
+            533
+          ],
+          "d_model": 64,
+          "n_head": [
+            8,
+            4,
+            2,
+            8,
+            8,
+            8,
+            4,
+            2,
+            8,
+            8
+          ],
+          "n_layer": 10
+        }
+      }
+    },
+    {
+      "case_id": "config_11_j1__both_reversed",
+      "family": "both_reversed",
+      "hidden_width": 64,
+      "note": "Permute both lists: combined structural change.",
+      "source_config": "config_11_j1",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1058,
+            1951,
+            2022,
+            626,
+            804,
+            1489,
+            759,
+            795,
+            1011,
+            533
+          ],
+          "d_model": 64,
+          "n_head": [
+            8,
+            8,
+            2,
+            4,
+            8,
+            8,
+            8,
+            2,
+            4,
+            8
+          ],
+          "n_layer": 10
+        },
+        "reordered": {
+          "d_inner": [
+            533,
+            1011,
+            795,
+            759,
+            1489,
+            804,
+            626,
+            2022,
+            1951,
+            1058
+          ],
+          "d_model": 64,
+          "n_head": [
+            8,
+            4,
+            2,
+            8,
+            8,
+            8,
+            4,
+            2,
+            8,
+            8
+          ],
+          "n_layer": 10
+        }
+      }
+    },
+    {
+      "case_id": "config_11_j7__ffn_reversed_fixed_heads",
+      "family": "ffn_reversed_fixed_heads",
+      "hidden_width": 64,
+      "note": "Permute FFN widths, keep head counts: probes positional sensitivity.",
+      "source_config": "config_11_j7",
+      "variants": {
+        "original": {
+          "d_inner": [
+            739,
+            1877,
+            1916,
+            1170,
+            1308,
+            1582,
+            1126,
+            1033,
+            944,
+            1894,
+            1203,
+            801
+          ],
+          "d_model": 64,
+          "n_head": [
+            8,
+            8,
+            2,
+            4,
+            2,
+            4,
+            8,
+            2,
+            2,
+            4,
+            4,
+            2
+          ],
+          "n_layer": 12
+        },
+        "reordered": {
+          "d_inner": [
+            801,
+            1203,
+            1894,
+            944,
+            1033,
+            1126,
+            1582,
+            1308,
+            1170,
+            1916,
+            1877,
+            739
+          ],
+          "d_model": 64,
+          "n_head": [
+            8,
+            8,
+            2,
+            4,
+            2,
+            4,
+            8,
+            2,
+            2,
+            4,
+            4,
+            2
+          ],
+          "n_layer": 12
+        }
+      }
+    },
+    {
+      "case_id": "config_11_j7__ffn_rotated_fixed_heads",
+      "family": "ffn_rotated_fixed_heads",
+      "hidden_width": 64,
+      "note": "A second FFN permutation with fixed heads.",
+      "source_config": "config_11_j7",
+      "variants": {
+        "original": {
+          "d_inner": [
+            739,
+            1877,
+            1916,
+            1170,
+            1308,
+            1582,
+            1126,
+            1033,
+            944,
+            1894,
+            1203,
+            801
+          ],
+          "d_model": 64,
+          "n_head": [
+            8,
+            8,
+            2,
+            4,
+            2,
+            4,
+            8,
+            2,
+            2,
+            4,
+            4,
+            2
+          ],
+          "n_layer": 12
+        },
+        "reordered": {
+          "d_inner": [
+            1877,
+            1916,
+            1170,
+            1308,
+            1582,
+            1126,
+            1033,
+            944,
+            1894,
+            1203,
+            801,
+            739
+          ],
+          "d_model": 64,
+          "n_head": [
+            8,
+            8,
+            2,
+            4,
+            2,
+            4,
+            8,
+            2,
+            2,
+            4,
+            4,
+            2
+          ],
+          "n_layer": 12
+        }
+      }
+    },
+    {
+      "case_id": "config_11_j7__heads_reversed_fixed_ffn",
+      "family": "heads_reversed_fixed_ffn",
+      "hidden_width": 64,
+      "note": "Permute attention head counts, keep FFN widths: isolates the attention-prefix effect.",
+      "source_config": "config_11_j7",
+      "variants": {
+        "original": {
+          "d_inner": [
+            739,
+            1877,
+            1916,
+            1170,
+            1308,
+            1582,
+            1126,
+            1033,
+            944,
+            1894,
+            1203,
+            801
+          ],
+          "d_model": 64,
+          "n_head": [
+            8,
+            8,
+            2,
+            4,
+            2,
+            4,
+            8,
+            2,
+            2,
+            4,
+            4,
+            2
+          ],
+          "n_layer": 12
+        },
+        "reordered": {
+          "d_inner": [
+            739,
+            1877,
+            1916,
+            1170,
+            1308,
+            1582,
+            1126,
+            1033,
+            944,
+            1894,
+            1203,
+            801
+          ],
+          "d_model": 64,
+          "n_head": [
+            2,
+            4,
+            4,
+            2,
+            2,
+            8,
+            4,
+            2,
+            4,
+            2,
+            8,
+            8
+          ],
+          "n_layer": 12
+        }
+      }
+    },
+    {
+      "case_id": "config_11_j7__both_reversed",
+      "family": "both_reversed",
+      "hidden_width": 64,
+      "note": "Permute both lists: combined structural change.",
+      "source_config": "config_11_j7",
+      "variants": {
+        "original": {
+          "d_inner": [
+            739,
+            1877,
+            1916,
+            1170,
+            1308,
+            1582,
+            1126,
+            1033,
+            944,
+            1894,
+            1203,
+            801
+          ],
+          "d_model": 64,
+          "n_head": [
+            8,
+            8,
+            2,
+            4,
+            2,
+            4,
+            8,
+            2,
+            2,
+            4,
+            4,
+            2
+          ],
+          "n_layer": 12
+        },
+        "reordered": {
+          "d_inner": [
+            801,
+            1203,
+            1894,
+            944,
+            1033,
+            1126,
+            1582,
+            1308,
+            1170,
+            1916,
+            1877,
+            739
+          ],
+          "d_model": 64,
+          "n_head": [
+            2,
+            4,
+            4,
+            2,
+            2,
+            8,
+            4,
+            2,
+            4,
+            2,
+            8,
+            8
+          ],
+          "n_layer": 12
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j0__ffn_reversed_fixed_heads",
+      "family": "ffn_reversed_fixed_heads",
+      "hidden_width": 128,
+      "note": "Permute FFN widths, keep head counts: probes positional sensitivity.",
+      "source_config": "config_0_j0",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1071,
+            640,
+            1286,
+            800,
+            1871
+          ],
+          "d_model": 128,
+          "n_head": [
+            2,
+            4,
+            4,
+            8,
+            8
+          ],
+          "n_layer": 5
+        },
+        "reordered": {
+          "d_inner": [
+            1871,
+            800,
+            1286,
+            640,
+            1071
+          ],
+          "d_model": 128,
+          "n_head": [
+            2,
+            4,
+            4,
+            8,
+            8
+          ],
+          "n_layer": 5
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j0__ffn_rotated_fixed_heads",
+      "family": "ffn_rotated_fixed_heads",
+      "hidden_width": 128,
+      "note": "A second FFN permutation with fixed heads.",
+      "source_config": "config_0_j0",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1071,
+            640,
+            1286,
+            800,
+            1871
+          ],
+          "d_model": 128,
+          "n_head": [
+            2,
+            4,
+            4,
+            8,
+            8
+          ],
+          "n_layer": 5
+        },
+        "reordered": {
+          "d_inner": [
+            640,
+            1286,
+            800,
+            1871,
+            1071
+          ],
+          "d_model": 128,
+          "n_head": [
+            2,
+            4,
+            4,
+            8,
+            8
+          ],
+          "n_layer": 5
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j0__heads_reversed_fixed_ffn",
+      "family": "heads_reversed_fixed_ffn",
+      "hidden_width": 128,
+      "note": "Permute attention head counts, keep FFN widths: isolates the attention-prefix effect.",
+      "source_config": "config_0_j0",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1071,
+            640,
+            1286,
+            800,
+            1871
+          ],
+          "d_model": 128,
+          "n_head": [
+            2,
+            4,
+            4,
+            8,
+            8
+          ],
+          "n_layer": 5
+        },
+        "reordered": {
+          "d_inner": [
+            1071,
+            640,
+            1286,
+            800,
+            1871
+          ],
+          "d_model": 128,
+          "n_head": [
+            8,
+            8,
+            4,
+            4,
+            2
+          ],
+          "n_layer": 5
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j0__both_reversed",
+      "family": "both_reversed",
+      "hidden_width": 128,
+      "note": "Permute both lists: combined structural change.",
+      "source_config": "config_0_j0",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1071,
+            640,
+            1286,
+            800,
+            1871
+          ],
+          "d_model": 128,
+          "n_head": [
+            2,
+            4,
+            4,
+            8,
+            8
+          ],
+          "n_layer": 5
+        },
+        "reordered": {
+          "d_inner": [
+            1871,
+            800,
+            1286,
+            640,
+            1071
+          ],
+          "d_model": 128,
+          "n_head": [
+            8,
+            8,
+            4,
+            4,
+            2
+          ],
+          "n_layer": 5
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j4__ffn_reversed_fixed_heads",
+      "family": "ffn_reversed_fixed_heads",
+      "hidden_width": 128,
+      "note": "Permute FFN widths, keep head counts: probes positional sensitivity.",
+      "source_config": "config_0_j4",
+      "variants": {
+        "original": {
+          "d_inner": [
+            2023,
+            1184,
+            1313,
+            948,
+            1644,
+            1615,
+            548
+          ],
+          "d_model": 128,
+          "n_head": [
+            4,
+            2,
+            2,
+            2,
+            8,
+            4,
+            2
+          ],
+          "n_layer": 7
+        },
+        "reordered": {
+          "d_inner": [
+            548,
+            1615,
+            1644,
+            948,
+            1313,
+            1184,
+            2023
+          ],
+          "d_model": 128,
+          "n_head": [
+            4,
+            2,
+            2,
+            2,
+            8,
+            4,
+            2
+          ],
+          "n_layer": 7
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j4__ffn_rotated_fixed_heads",
+      "family": "ffn_rotated_fixed_heads",
+      "hidden_width": 128,
+      "note": "A second FFN permutation with fixed heads.",
+      "source_config": "config_0_j4",
+      "variants": {
+        "original": {
+          "d_inner": [
+            2023,
+            1184,
+            1313,
+            948,
+            1644,
+            1615,
+            548
+          ],
+          "d_model": 128,
+          "n_head": [
+            4,
+            2,
+            2,
+            2,
+            8,
+            4,
+            2
+          ],
+          "n_layer": 7
+        },
+        "reordered": {
+          "d_inner": [
+            1184,
+            1313,
+            948,
+            1644,
+            1615,
+            548,
+            2023
+          ],
+          "d_model": 128,
+          "n_head": [
+            4,
+            2,
+            2,
+            2,
+            8,
+            4,
+            2
+          ],
+          "n_layer": 7
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j4__heads_reversed_fixed_ffn",
+      "family": "heads_reversed_fixed_ffn",
+      "hidden_width": 128,
+      "note": "Permute attention head counts, keep FFN widths: isolates the attention-prefix effect.",
+      "source_config": "config_0_j4",
+      "variants": {
+        "original": {
+          "d_inner": [
+            2023,
+            1184,
+            1313,
+            948,
+            1644,
+            1615,
+            548
+          ],
+          "d_model": 128,
+          "n_head": [
+            4,
+            2,
+            2,
+            2,
+            8,
+            4,
+            2
+          ],
+          "n_layer": 7
+        },
+        "reordered": {
+          "d_inner": [
+            2023,
+            1184,
+            1313,
+            948,
+            1644,
+            1615,
+            548
+          ],
+          "d_model": 128,
+          "n_head": [
+            2,
+            4,
+            8,
+            2,
+            2,
+            2,
+            4
+          ],
+          "n_layer": 7
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j4__both_reversed",
+      "family": "both_reversed",
+      "hidden_width": 128,
+      "note": "Permute both lists: combined structural change.",
+      "source_config": "config_0_j4",
+      "variants": {
+        "original": {
+          "d_inner": [
+            2023,
+            1184,
+            1313,
+            948,
+            1644,
+            1615,
+            548
+          ],
+          "d_model": 128,
+          "n_head": [
+            4,
+            2,
+            2,
+            2,
+            8,
+            4,
+            2
+          ],
+          "n_layer": 7
+        },
+        "reordered": {
+          "d_inner": [
+            548,
+            1615,
+            1644,
+            948,
+            1313,
+            1184,
+            2023
+          ],
+          "d_model": 128,
+          "n_head": [
+            2,
+            4,
+            8,
+            2,
+            2,
+            2,
+            4
+          ],
+          "n_layer": 7
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j7__ffn_reversed_fixed_heads",
+      "family": "ffn_reversed_fixed_heads",
+      "hidden_width": 256,
+      "note": "Permute FFN widths, keep head counts: probes positional sensitivity.",
+      "source_config": "config_0_j7",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1403,
+            1382,
+            972,
+            1043,
+            1921,
+            1192,
+            1613,
+            1809,
+            1400,
+            797,
+            539,
+            861,
+            1605,
+            746,
+            1126
+          ],
+          "d_model": 256,
+          "n_head": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            8,
+            8,
+            2,
+            2,
+            8,
+            2,
+            2,
+            8,
+            2,
+            4
+          ],
+          "n_layer": 15
+        },
+        "reordered": {
+          "d_inner": [
+            1126,
+            746,
+            1605,
+            861,
+            539,
+            797,
+            1400,
+            1809,
+            1613,
+            1192,
+            1921,
+            1043,
+            972,
+            1382,
+            1403
+          ],
+          "d_model": 256,
+          "n_head": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            8,
+            8,
+            2,
+            2,
+            8,
+            2,
+            2,
+            8,
+            2,
+            4
+          ],
+          "n_layer": 15
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j7__ffn_rotated_fixed_heads",
+      "family": "ffn_rotated_fixed_heads",
+      "hidden_width": 256,
+      "note": "A second FFN permutation with fixed heads.",
+      "source_config": "config_0_j7",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1403,
+            1382,
+            972,
+            1043,
+            1921,
+            1192,
+            1613,
+            1809,
+            1400,
+            797,
+            539,
+            861,
+            1605,
+            746,
+            1126
+          ],
+          "d_model": 256,
+          "n_head": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            8,
+            8,
+            2,
+            2,
+            8,
+            2,
+            2,
+            8,
+            2,
+            4
+          ],
+          "n_layer": 15
+        },
+        "reordered": {
+          "d_inner": [
+            1382,
+            972,
+            1043,
+            1921,
+            1192,
+            1613,
+            1809,
+            1400,
+            797,
+            539,
+            861,
+            1605,
+            746,
+            1126,
+            1403
+          ],
+          "d_model": 256,
+          "n_head": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            8,
+            8,
+            2,
+            2,
+            8,
+            2,
+            2,
+            8,
+            2,
+            4
+          ],
+          "n_layer": 15
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j7__heads_reversed_fixed_ffn",
+      "family": "heads_reversed_fixed_ffn",
+      "hidden_width": 256,
+      "note": "Permute attention head counts, keep FFN widths: isolates the attention-prefix effect.",
+      "source_config": "config_0_j7",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1403,
+            1382,
+            972,
+            1043,
+            1921,
+            1192,
+            1613,
+            1809,
+            1400,
+            797,
+            539,
+            861,
+            1605,
+            746,
+            1126
+          ],
+          "d_model": 256,
+          "n_head": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            8,
+            8,
+            2,
+            2,
+            8,
+            2,
+            2,
+            8,
+            2,
+            4
+          ],
+          "n_layer": 15
+        },
+        "reordered": {
+          "d_inner": [
+            1403,
+            1382,
+            972,
+            1043,
+            1921,
+            1192,
+            1613,
+            1809,
+            1400,
+            797,
+            539,
+            861,
+            1605,
+            746,
+            1126
+          ],
+          "d_model": 256,
+          "n_head": [
+            4,
+            2,
+            8,
+            2,
+            2,
+            8,
+            2,
+            2,
+            8,
+            8,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "n_layer": 15
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j7__both_reversed",
+      "family": "both_reversed",
+      "hidden_width": 256,
+      "note": "Permute both lists: combined structural change.",
+      "source_config": "config_0_j7",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1403,
+            1382,
+            972,
+            1043,
+            1921,
+            1192,
+            1613,
+            1809,
+            1400,
+            797,
+            539,
+            861,
+            1605,
+            746,
+            1126
+          ],
+          "d_model": 256,
+          "n_head": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            8,
+            8,
+            2,
+            2,
+            8,
+            2,
+            2,
+            8,
+            2,
+            4
+          ],
+          "n_layer": 15
+        },
+        "reordered": {
+          "d_inner": [
+            1126,
+            746,
+            1605,
+            861,
+            539,
+            797,
+            1400,
+            1809,
+            1613,
+            1192,
+            1921,
+            1043,
+            972,
+            1382,
+            1403
+          ],
+          "d_model": 256,
+          "n_head": [
+            4,
+            2,
+            8,
+            2,
+            2,
+            8,
+            2,
+            2,
+            8,
+            8,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "n_layer": 15
+        }
+      }
+    },
+    {
+      "case_id": "config_10_j2__ffn_reversed_fixed_heads",
+      "family": "ffn_reversed_fixed_heads",
+      "hidden_width": 256,
+      "note": "Permute FFN widths, keep head counts: probes positional sensitivity.",
+      "source_config": "config_10_j2",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1070,
+            1795,
+            752,
+            697,
+            1912,
+            1719
+          ],
+          "d_model": 256,
+          "n_head": [
+            2,
+            4,
+            8,
+            8,
+            8,
+            8
+          ],
+          "n_layer": 6
+        },
+        "reordered": {
+          "d_inner": [
+            1719,
+            1912,
+            697,
+            752,
+            1795,
+            1070
+          ],
+          "d_model": 256,
+          "n_head": [
+            2,
+            4,
+            8,
+            8,
+            8,
+            8
+          ],
+          "n_layer": 6
+        }
+      }
+    },
+    {
+      "case_id": "config_10_j2__ffn_rotated_fixed_heads",
+      "family": "ffn_rotated_fixed_heads",
+      "hidden_width": 256,
+      "note": "A second FFN permutation with fixed heads.",
+      "source_config": "config_10_j2",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1070,
+            1795,
+            752,
+            697,
+            1912,
+            1719
+          ],
+          "d_model": 256,
+          "n_head": [
+            2,
+            4,
+            8,
+            8,
+            8,
+            8
+          ],
+          "n_layer": 6
+        },
+        "reordered": {
+          "d_inner": [
+            1795,
+            752,
+            697,
+            1912,
+            1719,
+            1070
+          ],
+          "d_model": 256,
+          "n_head": [
+            2,
+            4,
+            8,
+            8,
+            8,
+            8
+          ],
+          "n_layer": 6
+        }
+      }
+    },
+    {
+      "case_id": "config_10_j2__heads_reversed_fixed_ffn",
+      "family": "heads_reversed_fixed_ffn",
+      "hidden_width": 256,
+      "note": "Permute attention head counts, keep FFN widths: isolates the attention-prefix effect.",
+      "source_config": "config_10_j2",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1070,
+            1795,
+            752,
+            697,
+            1912,
+            1719
+          ],
+          "d_model": 256,
+          "n_head": [
+            2,
+            4,
+            8,
+            8,
+            8,
+            8
+          ],
+          "n_layer": 6
+        },
+        "reordered": {
+          "d_inner": [
+            1070,
+            1795,
+            752,
+            697,
+            1912,
+            1719
+          ],
+          "d_model": 256,
+          "n_head": [
+            8,
+            8,
+            8,
+            8,
+            4,
+            2
+          ],
+          "n_layer": 6
+        }
+      }
+    },
+    {
+      "case_id": "config_10_j2__both_reversed",
+      "family": "both_reversed",
+      "hidden_width": 256,
+      "note": "Permute both lists: combined structural change.",
+      "source_config": "config_10_j2",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1070,
+            1795,
+            752,
+            697,
+            1912,
+            1719
+          ],
+          "d_model": 256,
+          "n_head": [
+            2,
+            4,
+            8,
+            8,
+            8,
+            8
+          ],
+          "n_layer": 6
+        },
+        "reordered": {
+          "d_inner": [
+            1719,
+            1912,
+            697,
+            752,
+            1795,
+            1070
+          ],
+          "d_model": 256,
+          "n_head": [
+            8,
+            8,
+            8,
+            8,
+            4,
+            2
+          ],
+          "n_layer": 6
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j2__ffn_reversed_fixed_heads",
+      "family": "ffn_reversed_fixed_heads",
+      "hidden_width": 512,
+      "note": "Permute FFN widths, keep head counts: probes positional sensitivity.",
+      "source_config": "config_0_j2",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1270,
+            902,
+            2044,
+            934,
+            1354,
+            1432,
+            1808,
+            1889,
+            1669,
+            1024,
+            903,
+            2020,
+            1325,
+            1286,
+            942,
+            1202
+          ],
+          "d_model": 512,
+          "n_head": [
+            4,
+            8,
+            2,
+            4,
+            2,
+            2,
+            8,
+            2,
+            2,
+            4,
+            8,
+            4,
+            4,
+            8,
+            2,
+            4
+          ],
+          "n_layer": 16
+        },
+        "reordered": {
+          "d_inner": [
+            1202,
+            942,
+            1286,
+            1325,
+            2020,
+            903,
+            1024,
+            1669,
+            1889,
+            1808,
+            1432,
+            1354,
+            934,
+            2044,
+            902,
+            1270
+          ],
+          "d_model": 512,
+          "n_head": [
+            4,
+            8,
+            2,
+            4,
+            2,
+            2,
+            8,
+            2,
+            2,
+            4,
+            8,
+            4,
+            4,
+            8,
+            2,
+            4
+          ],
+          "n_layer": 16
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j2__ffn_rotated_fixed_heads",
+      "family": "ffn_rotated_fixed_heads",
+      "hidden_width": 512,
+      "note": "A second FFN permutation with fixed heads.",
+      "source_config": "config_0_j2",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1270,
+            902,
+            2044,
+            934,
+            1354,
+            1432,
+            1808,
+            1889,
+            1669,
+            1024,
+            903,
+            2020,
+            1325,
+            1286,
+            942,
+            1202
+          ],
+          "d_model": 512,
+          "n_head": [
+            4,
+            8,
+            2,
+            4,
+            2,
+            2,
+            8,
+            2,
+            2,
+            4,
+            8,
+            4,
+            4,
+            8,
+            2,
+            4
+          ],
+          "n_layer": 16
+        },
+        "reordered": {
+          "d_inner": [
+            902,
+            2044,
+            934,
+            1354,
+            1432,
+            1808,
+            1889,
+            1669,
+            1024,
+            903,
+            2020,
+            1325,
+            1286,
+            942,
+            1202,
+            1270
+          ],
+          "d_model": 512,
+          "n_head": [
+            4,
+            8,
+            2,
+            4,
+            2,
+            2,
+            8,
+            2,
+            2,
+            4,
+            8,
+            4,
+            4,
+            8,
+            2,
+            4
+          ],
+          "n_layer": 16
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j2__heads_reversed_fixed_ffn",
+      "family": "heads_reversed_fixed_ffn",
+      "hidden_width": 512,
+      "note": "Permute attention head counts, keep FFN widths: isolates the attention-prefix effect.",
+      "source_config": "config_0_j2",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1270,
+            902,
+            2044,
+            934,
+            1354,
+            1432,
+            1808,
+            1889,
+            1669,
+            1024,
+            903,
+            2020,
+            1325,
+            1286,
+            942,
+            1202
+          ],
+          "d_model": 512,
+          "n_head": [
+            4,
+            8,
+            2,
+            4,
+            2,
+            2,
+            8,
+            2,
+            2,
+            4,
+            8,
+            4,
+            4,
+            8,
+            2,
+            4
+          ],
+          "n_layer": 16
+        },
+        "reordered": {
+          "d_inner": [
+            1270,
+            902,
+            2044,
+            934,
+            1354,
+            1432,
+            1808,
+            1889,
+            1669,
+            1024,
+            903,
+            2020,
+            1325,
+            1286,
+            942,
+            1202
+          ],
+          "d_model": 512,
+          "n_head": [
+            4,
+            2,
+            8,
+            4,
+            4,
+            8,
+            4,
+            2,
+            2,
+            8,
+            2,
+            2,
+            4,
+            2,
+            8,
+            4
+          ],
+          "n_layer": 16
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j2__both_reversed",
+      "family": "both_reversed",
+      "hidden_width": 512,
+      "note": "Permute both lists: combined structural change.",
+      "source_config": "config_0_j2",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1270,
+            902,
+            2044,
+            934,
+            1354,
+            1432,
+            1808,
+            1889,
+            1669,
+            1024,
+            903,
+            2020,
+            1325,
+            1286,
+            942,
+            1202
+          ],
+          "d_model": 512,
+          "n_head": [
+            4,
+            8,
+            2,
+            4,
+            2,
+            2,
+            8,
+            2,
+            2,
+            4,
+            8,
+            4,
+            4,
+            8,
+            2,
+            4
+          ],
+          "n_layer": 16
+        },
+        "reordered": {
+          "d_inner": [
+            1202,
+            942,
+            1286,
+            1325,
+            2020,
+            903,
+            1024,
+            1669,
+            1889,
+            1808,
+            1432,
+            1354,
+            934,
+            2044,
+            902,
+            1270
+          ],
+          "d_model": 512,
+          "n_head": [
+            4,
+            2,
+            8,
+            4,
+            4,
+            8,
+            4,
+            2,
+            2,
+            8,
+            2,
+            2,
+            4,
+            2,
+            8,
+            4
+          ],
+          "n_layer": 16
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j6__ffn_reversed_fixed_heads",
+      "family": "ffn_reversed_fixed_heads",
+      "hidden_width": 512,
+      "note": "Permute FFN widths, keep head counts: probes positional sensitivity.",
+      "source_config": "config_0_j6",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1026,
+            1468,
+            1620,
+            1568,
+            884,
+            1096,
+            1385,
+            1017,
+            1306,
+            1027,
+            1647,
+            1824,
+            1758
+          ],
+          "d_model": 512,
+          "n_head": [
+            8,
+            8,
+            4,
+            2,
+            4,
+            8,
+            8,
+            4,
+            2,
+            8,
+            2,
+            8,
+            8
+          ],
+          "n_layer": 13
+        },
+        "reordered": {
+          "d_inner": [
+            1758,
+            1824,
+            1647,
+            1027,
+            1306,
+            1017,
+            1385,
+            1096,
+            884,
+            1568,
+            1620,
+            1468,
+            1026
+          ],
+          "d_model": 512,
+          "n_head": [
+            8,
+            8,
+            4,
+            2,
+            4,
+            8,
+            8,
+            4,
+            2,
+            8,
+            2,
+            8,
+            8
+          ],
+          "n_layer": 13
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j6__ffn_rotated_fixed_heads",
+      "family": "ffn_rotated_fixed_heads",
+      "hidden_width": 512,
+      "note": "A second FFN permutation with fixed heads.",
+      "source_config": "config_0_j6",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1026,
+            1468,
+            1620,
+            1568,
+            884,
+            1096,
+            1385,
+            1017,
+            1306,
+            1027,
+            1647,
+            1824,
+            1758
+          ],
+          "d_model": 512,
+          "n_head": [
+            8,
+            8,
+            4,
+            2,
+            4,
+            8,
+            8,
+            4,
+            2,
+            8,
+            2,
+            8,
+            8
+          ],
+          "n_layer": 13
+        },
+        "reordered": {
+          "d_inner": [
+            1468,
+            1620,
+            1568,
+            884,
+            1096,
+            1385,
+            1017,
+            1306,
+            1027,
+            1647,
+            1824,
+            1758,
+            1026
+          ],
+          "d_model": 512,
+          "n_head": [
+            8,
+            8,
+            4,
+            2,
+            4,
+            8,
+            8,
+            4,
+            2,
+            8,
+            2,
+            8,
+            8
+          ],
+          "n_layer": 13
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j6__heads_reversed_fixed_ffn",
+      "family": "heads_reversed_fixed_ffn",
+      "hidden_width": 512,
+      "note": "Permute attention head counts, keep FFN widths: isolates the attention-prefix effect.",
+      "source_config": "config_0_j6",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1026,
+            1468,
+            1620,
+            1568,
+            884,
+            1096,
+            1385,
+            1017,
+            1306,
+            1027,
+            1647,
+            1824,
+            1758
+          ],
+          "d_model": 512,
+          "n_head": [
+            8,
+            8,
+            4,
+            2,
+            4,
+            8,
+            8,
+            4,
+            2,
+            8,
+            2,
+            8,
+            8
+          ],
+          "n_layer": 13
+        },
+        "reordered": {
+          "d_inner": [
+            1026,
+            1468,
+            1620,
+            1568,
+            884,
+            1096,
+            1385,
+            1017,
+            1306,
+            1027,
+            1647,
+            1824,
+            1758
+          ],
+          "d_model": 512,
+          "n_head": [
+            8,
+            8,
+            2,
+            8,
+            2,
+            4,
+            8,
+            8,
+            4,
+            2,
+            4,
+            8,
+            8
+          ],
+          "n_layer": 13
+        }
+      }
+    },
+    {
+      "case_id": "config_0_j6__both_reversed",
+      "family": "both_reversed",
+      "hidden_width": 512,
+      "note": "Permute both lists: combined structural change.",
+      "source_config": "config_0_j6",
+      "variants": {
+        "original": {
+          "d_inner": [
+            1026,
+            1468,
+            1620,
+            1568,
+            884,
+            1096,
+            1385,
+            1017,
+            1306,
+            1027,
+            1647,
+            1824,
+            1758
+          ],
+          "d_model": 512,
+          "n_head": [
+            8,
+            8,
+            4,
+            2,
+            4,
+            8,
+            8,
+            4,
+            2,
+            8,
+            2,
+            8,
+            8
+          ],
+          "n_layer": 13
+        },
+        "reordered": {
+          "d_inner": [
+            1758,
+            1824,
+            1647,
+            1027,
+            1306,
+            1017,
+            1385,
+            1096,
+            884,
+            1568,
+            1620,
+            1468,
+            1026
+          ],
+          "d_model": 512,
+          "n_head": [
+            8,
+            8,
+            2,
+            8,
+            2,
+            4,
+            8,
+            8,
+            4,
+            2,
+            4,
+            8,
+            8
+          ],
+          "n_layer": 13
+        }
+      }
+    }
+  ],
+  "generated_by": "experiments/dataset.py",
+  "purpose": "Mechanism check: does prefix-capacity reweighting respond to layer order, and does the a=0 ablation remove that response?",
+  "source_config_count": 8,
+  "source_split": "development (identifiers only; no labels read)",
+  "warning": "These are SYNTHETIC reorderings with NO trained outcomes. They test structural sensitivity only, never predictive validity. Do not assign an existing architecture's PPL to them."
+}

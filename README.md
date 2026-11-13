@@ -86,17 +86,20 @@ arithmetic, provenance and the full evaluation protocol.
 ```
 .
 ├── README.md                    # this file
+├── EVALUATION.md                # dataset, baselines, dev/test results
 ├── requirements.txt             # core harness needs no third-party packages
 ├── .gitignore
-├── .gitattributes               # keeps the starter byte-exact (SHA-256 checks)
-├── nsc-starter/                 # extracted, unmodified starter — the working harness
+├── .gitattributes               # keeps the starter byte-exact (data-integrity checks)
+├── nsc-starter/                 # course starter harness (student_score.py is ours)
 │   ├── README.md                # protocol, schema, baselines, limitations
 │   ├── nsc.py                   # MP integral, per-layer / original NSC, resources
-│   ├── student_score.py         # OUR WORK: score(config) + ablation(config)
+│   ├── student_score.py         # OUR WORK: score / ablation / position-only control
 │   ├── evaluate.py              # ranking, size control, fixed-pool selection
 │   ├── check_starter.py         # numerical identities and data-integrity checks
 │   ├── expected_development.json# reference output for the unedited template
 │   └── data/                    # 200 configs, splits, labels, resources, provenance
+├── experiments/                 # dataset build, freeze, mechanism check, full evaluation
+│   └── data/                    # generated datasets and result tables (committed)
 ├── figures/                     # regenerated report figures (gitignored)
 └── results/                     # generated result JSON (gitignored)
 ```
@@ -120,6 +123,9 @@ After freezing the method, the development choices and the code version:
 ```bash
 python evaluate.py --split final --output ../results/final_results.json
 ```
+
+The full pipeline and the reported numbers are in [EVALUATION.md](EVALUATION.md);
+scripts live in `experiments/`.
 
 `--student path/to/module.py` selects another scorer implementation. The
 evaluator loads only the chosen split's label file. Expect seconds on an
