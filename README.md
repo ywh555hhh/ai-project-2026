@@ -12,9 +12,9 @@ archived panel of 200 GPT-2 / Transformer-XL configurations.
 Everything runs on CPU with the supplied Python 3.9+ / standard-library-only
 starter. There is no training, GPU, model download or LLM API call.
 
-The submitted proposal and the original starter archive live in `reference/`
-(kept locally, gitignored). `nsc-starter/` holds the extracted, unmodified
-course harness; only code and data are in version control.
+The submitted proposal is `project_proposal.pdf`. `nsc-starter/` holds the
+course harness and our scorer; the supplied baseline, evaluator and raw data
+are preserved. Local reference archives can be kept in `reference/` (gitignored).
 
 ## Team
 
@@ -98,9 +98,9 @@ arithmetic, provenance and the full evaluation protocol.
 │   ├── check_starter.py         # numerical identities and data-integrity checks
 │   ├── expected_development.json# reference output for the unedited template
 │   └── data/                    # 200 configs, splits, labels, resources, provenance
-├── experiments/                 # dataset build, freeze, mechanism check, full evaluation
+├── experiments/                 # dataset, development selection, mechanism and evaluation
 │   └── data/                    # generated datasets and result tables (committed)
-├── figures/                     # regenerated report figures (gitignored)
+├── figures/                     # figures are produced separately
 └── results/                     # generated result JSON (gitignored)
 ```
 
@@ -127,10 +127,44 @@ python evaluate.py --split final --output ../results/final_results.json
 The full pipeline and the reported numbers are in [EVALUATION.md](EVALUATION.md);
 scripts live in `experiments/`.
 
+To reproduce the complete experiments from the repository root:
+
+```bash
+python nsc-starter/check_starter.py
+python experiments/select_alpha.py
+python experiments/dataset.py
+python experiments/mechanism.py
+python experiments/evaluate_all.py
+python experiments/analyze.py
+```
+
+The original development choice remains `a=0`. The extended experiments include
+same-a position controls, the exact invariant/position/head-residual decomposition,
+FLOPs and depth controls, paired architecture bootstrap, and selected-architecture
+profiles for every prescribed budget. Layer-order decomposition and resource
+analysis follow the proposal; the detailed component ablations, extra resource
+matching and bootstrap settings were added after final outcomes were available.
+`select_alpha.py` replays the development calculation without writing to the scorer
+or the original selection record.
+
 `--student path/to/module.py` selects another scorer implementation. The
 evaluator loads only the chosen split's label file. Expect seconds on an
-ordinary laptop. Figures for the report are regenerated from `results/*.json`
-and written to `figures/`.
+ordinary laptop. Complete result tables are saved under `experiments/data/`;
+official and extended evaluator outputs are saved under `results/`.
+
+Data for figures are provided without plotting code:
+
+- `evaluation_summary.json`: ranking, budget-selection metrics, per-architecture
+  PPL and all method scores (`architecture_scores`), and cold/warm CPU timing
+  samples for each method (`scoring_cost.by_method`).
+- `analysis_summary.json`: component values, resource controls, bootstrap
+  intervals, architecture profiles and selected-ID frequencies. Selection cases
+  also include best-PPL distributions over the 200 trials, including random selection.
+- `mechanism_check.json`: synthetic permutation deltas and numerical identities.
+
+These files are under `experiments/data/`. Supplementary analysis reads this
+result table directly and checks that it matches the current scores and labels;
+it does not depend on the gitignored files in `results/`.
 
 ## Scope of the evidence
 

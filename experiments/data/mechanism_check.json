@@ -3,6 +3,12 @@
   "case_details": [
     {
       "case_id": "toy_ffn_order",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.0,
+        "position": -4.647057128638103
+      },
+      "constant_head_position_identity_error": 1.687538997430238e-14,
       "family": "toy_pair",
       "nsc": {
         "ffn_256_512": 121.82016980401691,
@@ -38,6 +44,12 @@
     },
     {
       "case_id": "config_11_j1__ffn_reversed_fixed_heads",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": -0.001220051385704312,
+        "position": 6.9302088107675
+      },
+      "constant_head_position_identity_error": null,
       "family": "ffn_reversed_fixed_heads",
       "nsc": {
         "original": 517.596998566159,
@@ -73,6 +85,12 @@
     },
     {
       "case_id": "config_11_j1__ffn_rotated_fixed_heads",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": -0.001263690398867137,
+        "position": -0.06087898946579173
+      },
+      "constant_head_position_identity_error": null,
       "family": "ffn_rotated_fixed_heads",
       "nsc": {
         "original": 517.596998566159,
@@ -108,6 +126,12 @@
     },
     {
       "case_id": "config_11_j1__heads_reversed_fixed_ffn",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": -0.0026130015138483933,
+        "position": 0.0
+      },
+      "constant_head_position_identity_error": null,
       "family": "heads_reversed_fixed_ffn",
       "nsc": {
         "original": 517.596998566159,
@@ -143,6 +167,12 @@
     },
     {
       "case_id": "config_11_j1__both_reversed",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": -0.004344212587320256,
+        "position": 6.9302088107675
+      },
+      "constant_head_position_identity_error": null,
       "family": "both_reversed",
       "nsc": {
         "original": 517.596998566159,
@@ -177,7 +207,54 @@
       "source_config": "config_11_j1"
     },
     {
+      "case_id": "config_11_j1__uniform_heads_ffn_reversed",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.0,
+        "position": 6.9357954391021295
+      },
+      "constant_head_position_identity_error": 2.3092638912203256e-14,
+      "family": "uniform_heads_ffn_reversed",
+      "nsc": {
+        "original": 517.6562771525693,
+        "reordered": 517.6562771525693
+      },
+      "nsc_delta": 0.0,
+      "ours_a1": {
+        "original": 715.2721049150502,
+        "reordered": 722.2079003541523
+      },
+      "ours_delta": {
+        "0.0": 0.0,
+        "0.25": 1.7339488597755235,
+        "0.5": 3.467897719551047,
+        "1.0": 6.935795439102094
+      },
+      "position_control_a1": {
+        "original": 693.7454485332571,
+        "reordered": 749.4614567476026
+      },
+      "position_control_delta": {
+        "0.0": 0.0,
+        "0.25": 13.929002053586373,
+        "0.5": 27.858004107172746,
+        "1.0": 55.71600821434549
+      },
+      "position_example": {
+        "original": 256.8529483267403,
+        "reordered": 312.56895654108587
+      },
+      "resource_invariant": true,
+      "source_config": "config_11_j1"
+    },
+    {
       "case_id": "config_11_j7__ffn_reversed_fixed_heads",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": -6.312705380845211e-05,
+        "position": 2.3146450325369265
+      },
+      "constant_head_position_identity_error": null,
       "family": "ffn_reversed_fixed_heads",
       "nsc": {
         "original": 707.2665189378745,
@@ -213,6 +290,12 @@
     },
     {
       "case_id": "config_11_j7__ffn_rotated_fixed_heads",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": -0.0004429252500954533,
+        "position": -2.1438456038414664
+      },
+      "constant_head_position_identity_error": null,
       "family": "ffn_rotated_fixed_heads",
       "nsc": {
         "original": 707.2665189378745,
@@ -231,13 +314,13 @@
       },
       "position_control_a1": {
         "original": 985.4481850510942,
-        "reordered": 965.804232384166
+        "reordered": 965.8042323841659
       },
       "position_control_delta": {
         "0.0": 0.0,
         "0.25": -4.910988166732068,
         "0.5": -9.821976333464136,
-        "1.0": -19.64395266692827
+        "1.0": -19.643952666928385
       },
       "position_example": {
         "original": 372.48678360975634,
@@ -248,6 +331,12 @@
     },
     {
       "case_id": "config_11_j7__heads_reversed_fixed_ffn",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": -0.02089234200138405,
+        "position": 0.0
+      },
+      "constant_head_position_identity_error": null,
       "family": "heads_reversed_fixed_ffn",
       "nsc": {
         "original": 707.2665189378745,
@@ -283,6 +372,12 @@
     },
     {
       "case_id": "config_11_j7__both_reversed",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": -0.021101192263619832,
+        "position": 2.3146450325369265
+      },
+      "constant_head_position_identity_error": null,
       "family": "both_reversed",
       "nsc": {
         "original": 707.2665189378745,
@@ -317,7 +412,54 @@
       "source_config": "config_11_j7"
     },
     {
+      "case_id": "config_11_j7__uniform_heads_ffn_reversed",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 3.1954476581818956e-16,
+        "position": 2.318404750814217
+      },
+      "constant_head_position_identity_error": 6.150635556423367e-14,
+      "family": "uniform_heads_ffn_reversed",
+      "nsc": {
+        "original": 707.4072834669414,
+        "reordered": 707.4072834669414
+      },
+      "nsc_delta": 0.0,
+      "ours_a1": {
+        "original": 993.5049194287077,
+        "reordered": 995.8233241795219
+      },
+      "ours_delta": {
+        "0.0": 0.0,
+        "0.25": 0.579601187703588,
+        "0.5": 1.159202375407176,
+        "1.0": 2.3184047508142385
+      },
+      "position_control_a1": {
+        "original": 985.5889495801612,
+        "reordered": 1006.7979290786955
+      },
+      "position_control_delta": {
+        "0.0": 0.0,
+        "0.25": 5.302244874633516,
+        "0.5": 10.604489749267145,
+        "1.0": 21.20897949853429
+      },
+      "position_example": {
+        "original": 372.57445546199284,
+        "reordered": 393.783434960527
+      },
+      "resource_invariant": true,
+      "source_config": "config_11_j7"
+    },
+    {
       "case_id": "config_0_j0__ffn_reversed_fixed_heads",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.0049054820694846984,
+        "position": -9.919399430756165
+      },
+      "constant_head_position_identity_error": null,
       "family": "ffn_reversed_fixed_heads",
       "nsc": {
         "original": 589.8681648717516,
@@ -353,6 +495,12 @@
     },
     {
       "case_id": "config_0_j0__ffn_rotated_fixed_heads",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": -0.011067076149145198,
+        "position": -0.5895294163895244
+      },
+      "constant_head_position_identity_error": null,
       "family": "ffn_rotated_fixed_heads",
       "nsc": {
         "original": 589.8681648717516,
@@ -388,6 +536,12 @@
     },
     {
       "case_id": "config_0_j0__heads_reversed_fixed_ffn",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.12280170429841616,
+        "position": 0.0
+      },
+      "constant_head_position_identity_error": null,
       "family": "heads_reversed_fixed_ffn",
       "nsc": {
         "original": 589.8681648717516,
@@ -423,6 +577,12 @@
     },
     {
       "case_id": "config_0_j0__both_reversed",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.11186546127579315,
+        "position": -9.919399430756165
+      },
+      "constant_head_position_identity_error": null,
       "family": "both_reversed",
       "nsc": {
         "original": 589.8681648717516,
@@ -457,7 +617,54 @@
       "source_config": "config_0_j0"
     },
     {
+      "case_id": "config_0_j0__uniform_heads_ffn_reversed",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.0,
+        "position": -9.885005167709885
+      },
+      "constant_head_position_identity_error": 1.1723955140041653e-13,
+      "family": "uniform_heads_ffn_reversed",
+      "nsc": {
+        "original": 589.3101797730516,
+        "reordered": 589.3101797730516
+      },
+      "nsc_delta": 0.0,
+      "ours_a1": {
+        "original": 775.939568129143,
+        "reordered": 766.054562961433
+      },
+      "ours_delta": {
+        "0.0": 0.0,
+        "0.25": -2.4712512919275014,
+        "0.5": -4.942502583854889,
+        "1.0": -9.885005167710005
+      },
+      "position_control_a1": {
+        "original": 797.7693109964549,
+        "reordered": 751.5247670659747
+      },
+      "position_control_delta": {
+        "0.0": 0.0,
+        "0.25": -11.561135982620044,
+        "0.5": -23.12227196524009,
+        "1.0": -46.24454393048018
+      },
+      "position_example": {
+        "original": 376.708379829071,
+        "reordered": 330.46383589859084
+      },
+      "resource_invariant": true,
+      "source_config": "config_0_j0"
+    },
+    {
       "case_id": "config_0_j4__ffn_reversed_fixed_heads",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.010398895466282938,
+        "position": 12.323532188223872
+      },
+      "constant_head_position_identity_error": null,
       "family": "ffn_reversed_fixed_heads",
       "nsc": {
         "original": 916.0113013749161,
@@ -493,6 +700,12 @@
     },
     {
       "case_id": "config_0_j4__ffn_rotated_fixed_heads",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.003992453368976323,
+        "position": 8.59773091735628
+      },
+      "constant_head_position_identity_error": null,
       "family": "ffn_rotated_fixed_heads",
       "nsc": {
         "original": 916.0113013749161,
@@ -528,6 +741,12 @@
     },
     {
       "case_id": "config_0_j4__heads_reversed_fixed_ffn",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.020275055538022946,
+        "position": 0.0
+      },
+      "constant_head_position_identity_error": null,
       "family": "heads_reversed_fixed_ffn",
       "nsc": {
         "original": 916.0113013749161,
@@ -563,6 +782,12 @@
     },
     {
       "case_id": "config_0_j4__both_reversed",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.011162693959434956,
+        "position": 12.323532188223872
+      },
+      "constant_head_position_identity_error": null,
       "family": "both_reversed",
       "nsc": {
         "original": 916.0113013749161,
@@ -597,7 +822,54 @@
       "source_config": "config_0_j4"
     },
     {
+      "case_id": "config_0_j4__uniform_heads_ffn_reversed",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": -1.733246957556789e-15,
+        "position": 12.345417443871433
+      },
+      "constant_head_position_identity_error": 1.4033219031261979e-13,
+      "family": "uniform_heads_ffn_reversed",
+      "nsc": {
+        "original": 916.4003910358833,
+        "reordered": 916.4003910358833
+      },
+      "nsc_delta": 0.0,
+      "ours_a1": {
+        "original": 1223.4125062922762,
+        "reordered": 1235.7579237361476
+      },
+      "ours_delta": {
+        "0.0": 0.0,
+        "0.25": 3.086354360967789,
+        "0.5": 6.172708721935578,
+        "1.0": 12.345417443871384
+      },
+      "position_control_a1": {
+        "original": 1201.2942507055977,
+        "reordered": 1265.1628606620084
+      },
+      "position_control_delta": {
+        "0.0": 0.0,
+        "0.25": 15.96715248910266,
+        "0.5": 31.93430497820532,
+        "1.0": 63.86860995641064
+      },
+      "position_example": {
+        "original": 491.72306132801367,
+        "reordered": 555.5916712844244
+      },
+      "resource_invariant": true,
+      "source_config": "config_0_j4"
+    },
+    {
       "case_id": "config_0_j7__ffn_reversed_fixed_heads",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.0824729242977526,
+        "position": 52.83348283725087
+      },
+      "constant_head_position_identity_error": null,
       "family": "ffn_reversed_fixed_heads",
       "nsc": {
         "original": 4405.380006207018,
@@ -633,6 +905,12 @@
     },
     {
       "case_id": "config_0_j7__ffn_rotated_fixed_heads",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.005638236121574158,
+        "position": 8.637582973814403
+      },
+      "constant_head_position_identity_error": null,
       "family": "ffn_rotated_fixed_heads",
       "nsc": {
         "original": 4405.380006207018,
@@ -668,6 +946,12 @@
     },
     {
       "case_id": "config_0_j7__heads_reversed_fixed_ffn",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.9089576911479672,
+        "position": 0.0
+      },
+      "constant_head_position_identity_error": null,
       "family": "heads_reversed_fixed_ffn",
       "nsc": {
         "original": 4405.380006207018,
@@ -703,6 +987,12 @@
     },
     {
       "case_id": "config_0_j7__both_reversed",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.9676685330848909,
+        "position": 52.83348283725087
+      },
+      "constant_head_position_identity_error": null,
       "family": "both_reversed",
       "nsc": {
         "original": 4405.380006207018,
@@ -737,7 +1027,54 @@
       "source_config": "config_0_j7"
     },
     {
+      "case_id": "config_0_j7__uniform_heads_ffn_reversed",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.0,
+        "position": 52.69813222617972
+      },
+      "constant_head_position_identity_error": 5.861977570020827e-13,
+      "family": "uniform_heads_ffn_reversed",
+      "nsc": {
+        "original": 4399.774983825435,
+        "reordered": 4399.774983825435
+      },
+      "nsc_delta": 0.0,
+      "ours_a1": {
+        "original": 5741.566984388175,
+        "reordered": 5794.265116614355
+      },
+      "ours_delta": {
+        "0.0": 0.0,
+        "0.25": 13.174533056545442,
+        "0.5": 26.349066113089975,
+        "1.0": 52.69813222617995
+      },
+      "position_control_a1": {
+        "original": 5693.29296373341,
+        "reordered": 5852.372629385789
+      },
+      "position_control_delta": {
+        "0.0": 0.0,
+        "0.25": 39.769916413094506,
+        "0.5": 79.53983282618992,
+        "1.0": 159.07966565237894
+      },
+      "position_example": {
+        "original": 2267.0068252140427,
+        "reordered": 2426.0864908664216
+      },
+      "resource_invariant": true,
+      "source_config": "config_0_j7"
+    },
+    {
       "case_id": "config_10_j2__ffn_reversed_fixed_heads",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.010645296502580393,
+        "position": -24.375366410668022
+      },
+      "constant_head_position_identity_error": null,
       "family": "ffn_reversed_fixed_heads",
       "nsc": {
         "original": 1834.3867219152505,
@@ -773,6 +1110,12 @@
     },
     {
       "case_id": "config_10_j2__ffn_rotated_fixed_heads",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.024244826931809238,
+        "position": -9.811013061384955
+      },
+      "constant_head_position_identity_error": null,
       "family": "ffn_rotated_fixed_heads",
       "nsc": {
         "original": 1834.3867219152505,
@@ -808,6 +1151,12 @@
     },
     {
       "case_id": "config_10_j2__heads_reversed_fixed_ffn",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.8190948122264365,
+        "position": 0.0
+      },
+      "constant_head_position_identity_error": null,
       "family": "heads_reversed_fixed_ffn",
       "nsc": {
         "original": 1834.3867219152505,
@@ -843,6 +1192,12 @@
     },
     {
       "case_id": "config_10_j2__both_reversed",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.7712315999001413,
+        "position": -24.375366410668022
+      },
+      "constant_head_position_identity_error": null,
       "family": "both_reversed",
       "nsc": {
         "original": 1834.3867219152505,
@@ -877,7 +1232,54 @@
       "source_config": "config_10_j2"
     },
     {
+      "case_id": "config_10_j2__uniform_heads_ffn_reversed",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.0,
+        "position": -24.21724851051053
+      },
+      "constant_head_position_identity_error": 2.717825964282383e-13,
+      "family": "uniform_heads_ffn_reversed",
+      "nsc": {
+        "original": 1828.7816995336682,
+        "reordered": 1828.7816995336682
+      },
+      "nsc_delta": 0.0,
+      "ours_a1": {
+        "original": 2352.5386420316754,
+        "reordered": 2328.3213935211647
+      },
+      "ours_delta": {
+        "0.0": 0.0,
+        "0.25": -6.054312127627782,
+        "0.5": -12.108624255255108,
+        "1.0": -24.21724851051067
+      },
+      "position_control_a1": {
+        "original": 2385.8387187313906,
+        "reordered": 2309.873349196594
+      },
+      "position_control_delta": {
+        "0.0": 0.0,
+        "0.25": -18.99134238369902,
+        "0.5": -37.982684767398496,
+        "1.0": -75.96536953479654
+      },
+      "position_example": {
+        "original": 1104.7720094953713,
+        "reordered": 1028.806639960575
+      },
+      "resource_invariant": true,
+      "source_config": "config_10_j2"
+    },
+    {
       "case_id": "config_0_j2__ffn_reversed_fixed_heads",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": -0.13545040143628329,
+        "position": 41.70595633270523
+      },
+      "constant_head_position_identity_error": null,
       "family": "ffn_reversed_fixed_heads",
       "nsc": {
         "original": 12630.863014346594,
@@ -913,6 +1315,12 @@
     },
     {
       "case_id": "config_0_j2__ffn_rotated_fixed_heads",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": -0.08892783496923162,
+        "position": -10.783913127302867
+      },
+      "constant_head_position_identity_error": null,
       "family": "ffn_rotated_fixed_heads",
       "nsc": {
         "original": 12630.863014346594,
@@ -948,6 +1356,12 @@
     },
     {
       "case_id": "config_0_j2__heads_reversed_fixed_ffn",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 1.862678989837804,
+        "position": 0.0
+      },
+      "constant_head_position_identity_error": null,
       "family": "heads_reversed_fixed_ffn",
       "nsc": {
         "original": 12630.863014346594,
@@ -983,6 +1397,12 @@
     },
     {
       "case_id": "config_0_j2__both_reversed",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 1.8303115577060587,
+        "position": 41.70595633270523
+      },
+      "constant_head_position_identity_error": null,
       "family": "both_reversed",
       "nsc": {
         "original": 12630.863014346594,
@@ -1017,7 +1437,54 @@
       "source_config": "config_0_j2"
     },
     {
+      "case_id": "config_0_j2__uniform_heads_ffn_reversed",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.0,
+        "position": 41.78338355843084
+      },
+      "constant_head_position_identity_error": 2.0961010704922955e-12,
+      "family": "uniform_heads_ffn_reversed",
+      "nsc": {
+        "original": 12651.376755251267,
+        "reordered": 12651.376755251267
+      },
+      "nsc_delta": 0.0,
+      "ours_a1": {
+        "original": 15784.702398506786,
+        "reordered": 15826.485782065216
+      },
+      "ours_delta": {
+        "0.0": 0.0,
+        "0.25": 10.445845889607881,
+        "0.5": 20.891691779215762,
+        "1.0": 41.783383558429705
+      },
+      "position_control_a1": {
+        "original": 15767.066540487045,
+        "reordered": 15856.523953188718
+      },
+      "position_control_delta": {
+        "0.0": 0.0,
+        "0.25": 22.36435317541691,
+        "0.5": 44.72870635083564,
+        "1.0": 89.45741270167309
+      },
+      "position_example": {
+        "original": 6676.3151948764,
+        "reordered": 6765.772607578071
+      },
+      "resource_invariant": true,
+      "source_config": "config_0_j2"
+    },
+    {
       "case_id": "config_0_j6__ffn_reversed_fixed_heads",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": -0.020480340552235687,
+        "position": -99.43446588309075
+      },
+      "constant_head_position_identity_error": null,
       "family": "ffn_reversed_fixed_heads",
       "nsc": {
         "original": 10237.696564315966,
@@ -1053,6 +1520,12 @@
     },
     {
       "case_id": "config_0_j6__ffn_rotated_fixed_heads",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": -0.07840728708195305,
+        "position": -40.50146616684788
+      },
+      "constant_head_position_identity_error": null,
       "family": "ffn_rotated_fixed_heads",
       "nsc": {
         "original": 10237.696564315966,
@@ -1088,6 +1561,12 @@
     },
     {
       "case_id": "config_0_j6__heads_reversed_fixed_ffn",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": -0.9020107192023565,
+        "position": 0.0
+      },
+      "constant_head_position_identity_error": null,
       "family": "heads_reversed_fixed_ffn",
       "nsc": {
         "original": 10237.696564315966,
@@ -1123,6 +1602,12 @@
     },
     {
       "case_id": "config_0_j6__both_reversed",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": -0.7554186048658509,
+        "position": -99.43446588309075
+      },
+      "constant_head_position_identity_error": null,
       "family": "both_reversed",
       "nsc": {
         "original": 10237.696564315966,
@@ -1155,15 +1640,82 @@
       },
       "resource_invariant": true,
       "source_config": "config_0_j6"
+    },
+    {
+      "case_id": "config_0_j6__uniform_heads_ffn_reversed",
+      "component_delta": {
+        "ffn_invariant": 0.0,
+        "head_residual": 0.0,
+        "position": -99.78224681338384
+      },
+      "constant_head_position_identity_error": 1.0871303857129533e-12,
+      "family": "uniform_heads_ffn_reversed",
+      "nsc": {
+        "original": 10269.457007693134,
+        "reordered": 10269.457007693134
+      },
+      "nsc_delta": 0.0,
+      "ours_a1": {
+        "original": 12823.00310992352,
+        "reordered": 12723.220863110137
+      },
+      "ours_delta": {
+        "0.0": 0.0,
+        "0.25": -24.945561703345447,
+        "0.5": -49.891123406690895,
+        "1.0": -99.78224681338361
+      },
+      "position_control_a1": {
+        "original": 12883.090395132414,
+        "reordered": 12671.204057298863
+      },
+      "position_control_delta": {
+        "0.0": 0.0,
+        "0.25": -52.97158445838795,
+        "0.5": -105.9431689167759,
+        "1.0": -211.8863378335518
+      },
+      "position_example": {
+        "original": 5635.650788443848,
+        "reordered": 5423.764450610296
+      },
+      "resource_invariant": true,
+      "source_config": "config_0_j6"
     }
   ],
-  "cases": 33,
-  "cases_with_ours_delta_gt_tol": 33,
+  "cases": 41,
+  "cases_with_ours_delta_gt_tol": 41,
+  "constant_head_position_identity_cases": 9,
   "failures": [],
   "head_only_cases": 8,
+  "homogeneous_layers_recover_position_weights": true,
   "interpretation": "Synthetic reorderings carry no trained outcomes. These results show structural sensitivity only, not predictive validity.",
+  "limiting_cases": [
+    {
+      "d_model": 64,
+      "n_layer": 1,
+      "passed": true
+    },
+    {
+      "d_model": 128,
+      "n_layer": 1,
+      "passed": true
+    },
+    {
+      "d_model": 256,
+      "n_layer": 1,
+      "passed": true
+    },
+    {
+      "d_model": 512,
+      "n_layer": 1,
+      "passed": true
+    }
+  ],
   "max_abs_nsc_delta": 0.0,
   "max_abs_ours_delta_a1": 100.18988448795608,
+  "max_abs_scorer_reconstruction_error": 4.547473508864641e-13,
+  "max_constant_head_position_identity_error": 2.0961010704922955e-12,
   "max_head_only_ours_delta_a1": 1.8626789898389688,
   "max_head_only_position_control_delta_a1": 0.0,
   "status": "PASS",

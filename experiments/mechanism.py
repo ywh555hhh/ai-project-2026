@@ -21,12 +21,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "nsc-starter"))
+sys.path.insert(0, str(ROOT))
 
 import student_score as ours  # noqa: E402
 from nsc import original_nsc, position_example, resource_estimate  # noqa: E402
+from experiments.components import decompose
+from experiments.select_alpha import ALPHAS
 
 HERE = Path(__file__).resolve().parent
-ALPHAS = (0.0, 0.25, 0.5, 1.0)
 TOL = 1e-8
 
 
@@ -39,10 +41,11 @@ def measure(config):
         "nsc": original_nsc(config),
         "position_example": position_example(config),
         "ablation_a0": ours.ablation(config),
-        "zero_weighting": ours.reweighted_nsc(config, 0.0, "none"),
+        "zero_weighting": {str(a): ours.reweighted_nsc(config, a, "none") for a in ALPHAS},
         "ours": {str(a): ours.reweighted_nsc(config, a, "prefix") for a in ALPHAS},
         "position_control": {str(a): ours.reweighted_nsc(config, a, "position") for a in ALPHAS},
         "prefix_term": prefix_term,
+        "decomposition": decompose(config),
         "first_prefix_weight": ours.prefix_weights(config)[1][0],
         "projection_parameters": res["projection_parameters"],
         "reference_macs_per_token": res["reference_macs_per_token"],
@@ -58,12 +61,24 @@ def main():
     case_results, failures = [], []
     nsc_deltas, ours_deltas, head_only_ours, head_only_control = [], [], [], []
     resource_ok = True
+    reconstruction_errors, constant_head_errors = [], []
 
     for case in data["cases"]:
         variants = case["variants"]
         names = list(variants)
         measured = {name: measure(cfg) for name, cfg in variants.items()}
         left, right = measured[names[0]], measured[names[1]]
+        if not close(left["decomposition"]["ffn_invariant"], right["decomposition"]["ffn_invariant"]):
+            failures.append(f"{case['case_id']}: FFN pair term was not permutation-invariant")
+        for m in measured.values():
+            reconstruction_errors.append(abs(m["prefix_term"] - m["decomposition"]["prefix_term"]))
+            if abs(m["decomposition"]["identity_error"]) > TOL:
+                failures.append(f"{case['case_id']}: algebraic decomposition failed")
+            if reconstruction_errors[-1] > TOL:
+                failures.append(f"{case['case_id']}: decomposition differs from the actual scorer term")
+        if case["family"] in ("uniform_heads_ffn_reversed", "toy_pair"):
+            if any(abs(m["decomposition"]["head_residual"]) > TOL for m in measured.values()):
+                failures.append(f"{case['case_id']}: constant-head residual was nonzero")
 
         # 1. additive NSC cannot see the permutation
         nsc_delta = right["nsc"] - left["nsc"]
@@ -81,7 +96,7 @@ def main():
         for name, m in measured.items():
             if not close(m["ablation_a0"], m["nsc"]):
                 failures.append(f"{case['case_id']}/{name}: a=0 did not recover NSC")
-            if not close(m["zero_weighting"], m["nsc"]):
+            if any(not close(value, m["nsc"]) for value in m["zero_weighting"].values()):
                 failures.append(f"{case['case_id']}/{name}: zero weighting did not recover NSC")
             if m["first_prefix_weight"] != 0.0:
                 failures.append(f"{case['case_id']}/{name}: C_1 != 0")
@@ -96,6 +111,14 @@ def main():
         if abs(delta["0.0"]) > TOL:
             failures.append(f"{case['case_id']}: ablation still has an order effect")
         ours_deltas.append(abs(delta["1.0"]))
+        constant_head_error = None
+        if all(len(set(cfg["n_head"])) == 1 for cfg in variants.values()):
+            part = left["decomposition"]
+            scale = part["attention"][0] * len(part["q"]) / part["denominator"]
+            constant_head_error = max(abs(delta[str(a)] - scale * control_delta[str(a)]) for a in ALPHAS)
+            constant_head_errors.append(constant_head_error)
+            if constant_head_error > TOL:
+                failures.append(f"{case['case_id']}: constant-head position identity failed")
         if case["family"] == "heads_reversed_fixed_ffn":
             head_only_ours.append(abs(delta["1.0"]))
             head_only_control.append(abs(control_delta["1.0"]))
@@ -111,6 +134,9 @@ def main():
             "position_control_a1": {n: measured[n]["position_control"]["1.0"] for n in names},
             "nsc_delta": nsc_delta, "ours_delta": delta,
             "position_control_delta": control_delta,
+            "constant_head_position_identity_error": constant_head_error,
+            "component_delta": {term: right["decomposition"][term] - left["decomposition"][term]
+                                for term in ("ffn_invariant", "position", "head_residual")},
             "resource_invariant": (left["projection_parameters"] == right["projection_parameters"]
                                    and left["reference_macs_per_token"] == right["reference_macs_per_token"]),
         })
@@ -132,6 +158,19 @@ def main():
     if max(head_only_ours) <= TOL:
         failures.append("no attention-prefix effect detected")
 
+    limiting = []
+    for width in (64, 128, 256, 512):
+        config = {"d_model": width, "n_layer": 1, "n_head": [4], "d_inner": [width * 4]}
+        passed = (ours.prefix_weights(config)[1] == [0.0] and all(
+            ours.reweighted_nsc(config, a) == original_nsc(config) for a in ALPHAS))
+        limiting.append({"d_model": width, "n_layer": 1, "passed": passed})
+        if not passed:
+            failures.append("single-layer limiting case failed")
+    homogeneous = {"d_model": 128, "n_layer": 4, "n_head": [4]*4, "d_inner": [512]*4}
+    homogeneous_ok = all(close(a, b) for a, b in zip(ours.prefix_weights(homogeneous)[1],
+                                                   [i / 4 for i in range(4)]))
+    if not homogeneous_ok:
+        failures.append("homogeneous layers did not recover positional prefix weights")
     summary = {
         "status": "PASS" if not failures else "FAIL",
         "cases": len(case_results),
@@ -146,6 +185,11 @@ def main():
         "interpretation": "Synthetic reorderings carry no trained outcomes. These results show "
                           "structural sensitivity only, not predictive validity.",
         "failures": failures,
+        "limiting_cases": limiting,
+        "homogeneous_layers_recover_position_weights": homogeneous_ok,
+        "max_abs_scorer_reconstruction_error": max(reconstruction_errors),
+        "constant_head_position_identity_cases": len(constant_head_errors),
+        "max_constant_head_position_identity_error": max(constant_head_errors),
         "case_details": case_results,
     }
     (HERE / "data" / "mechanism_check.json").write_text(

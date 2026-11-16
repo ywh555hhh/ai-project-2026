@@ -1,22 +1,18 @@
 #!/usr/bin/env python3
-"""Development-only hyperparameter selection and FREEZE of our method.
+"""Reproduce development-only hyperparameter selection without changing files.
 
 Protocol (from the proposal and the starter README):
 
 * Choose a in {0, 0.25, 0.5, 1} to maximise development Spearman rho against
   NEGATIVE validation PPL; prefer the smaller a on ties.
 * Record the full sweep as a sensitivity analysis.
-* Freeze the method, the hyperparameter and the code version BEFORE any
-  evaluation on the final split.
+* Verify the recorded choice used for final evaluation.
 
-This script reads ONLY nsc-starter/data/development_labels.json. It never
-opens final_labels.json. Running it after the final split has been evaluated
-would violate the protocol, so the frozen record is the audit trail.
+Only development outcome labels are read. Replaying the calculation does not
+overwrite the original choice, its timestamp or student_score.py.
 """
 import json
-import re
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -27,12 +23,11 @@ import student_score as ours  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 STARTER_DATA = ROOT / "nsc-starter" / "data"
-SCORER = ROOT / "nsc-starter" / "student_score.py"
 ALPHAS = (0.0, 0.25, 0.5, 1.0)
 TIE_TOL = 1e-12
 
 
-def main():
+def development_selection():
     configs = json.loads((STARTER_DATA / "architectures.json").read_text(encoding="utf-8"))
     splits = json.loads((STARTER_DATA / "splits.json").read_text(encoding="utf-8"))
     dev_labels = json.loads((STARTER_DATA / "development_labels.json").read_text(encoding="utf-8"))
@@ -62,29 +57,15 @@ def main():
     for row in sweep[1:]:
         if row["spearman_rho"] > best["spearman_rho"] + TIE_TOL:
             best = row
-        # exact/statistically identical rho -> keep the smaller a (sweep is ascending)
+        # Numerically tied rho -> keep the smaller a (sweep is ascending).
     chosen = best["alpha"]
 
     # Position-only control is reported at the same a but is NOT used to select a.
     control = [harness.canonical(ours.reweighted_nsc(c, chosen, "position")) for c in instances]
     control_rho = harness.correlation(harness.ranks(control), q_ranks)
 
-    # Apply the frozen alpha to the scorer itself, so the submission is self-contained.
-    source = SCORER.read_text(encoding="utf-8")
-    patched, count = re.subn(r"(?m)^ALPHA = [0-9.]+$", f"ALPHA = {chosen}", source)
-    if count != 1:
-        raise RuntimeError("could not locate the single ALPHA = ... line in student_score.py")
-    if patched != source:
-        with SCORER.open("w", encoding="utf-8", newline="\n") as handle:
-            handle.write(patched)
-
-    record = {
-        "frozen_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "status": "FROZEN - do not tune after this point",
-        "method": "prefix-capacity reweighted NSC: S_a = S0 + a*sum_l C_l*q_l",
-        "selection_metric": "Spearman rho against negative validation PPL on 100 development architectures",
+    return {
         "candidate_alphas": list(ALPHAS),
-        "tie_break": "prefer smaller a on ties (tolerance 1e-12)",
         "chosen_alpha": chosen,
         "chosen_spearman_rho": best["spearman_rho"],
         "sensitivity_analysis": sweep,
@@ -92,23 +73,33 @@ def main():
             "alpha": chosen, "spearman_rho": control_rho,
             "note": "reported for comparison; not used to select a",
         },
-        "labels_read": ["nsc-starter/data/development_labels.json"],
-        "final_labels_read": False,
-        "scorer_path": "nsc-starter/student_score.py",
         "epsilon": ours.EPS,
         "split_separation_verified": not (set(splits["development"]) & set(splits["final"])),
     }
-    (HERE / "frozen_config.json").write_text(
-        json.dumps(record, indent=2, sort_keys=True, allow_nan=False) + "\n", encoding="utf-8")
 
+
+def validate_selection():
+    record = json.loads((HERE / "frozen_config.json").read_text(encoding="utf-8"))
+    replay = development_selection()
+    for key, value in replay.items():
+        if record.get(key) != value:
+            raise RuntimeError(f"Development selection differs from the recorded {key}")
+    if ours.ALPHA != replay["chosen_alpha"]:
+        raise RuntimeError("Scorer alpha differs from the development-selected alpha")
+    return record
+
+
+def main():
+    record = validate_selection()
+    chosen = record["chosen_alpha"]
     print("development-only a sweep (Spearman rho vs -valid_ppl):")
-    for row in sweep:
+    for row in record["sensitivity_analysis"]:
         marker = "  <-- FROZEN" if row["alpha"] == chosen else ""
         print(f"  a={row['alpha']:<5} rho={row['spearman_rho']:.9f} "
               f"tau_b={row['kendall_tau_b']:.9f}{marker}")
+    control_rho = record["position_only_control_at_chosen_alpha"]["spearman_rho"]
     print(f"position-only control at a={chosen}: rho={control_rho:.9f}")
-    print(f"frozen a={chosen}")
-    print("written:", HERE / "frozen_config.json")
+    print(f"PASS: recorded alpha={chosen}; scorer and original record unchanged")
     return 0
 
 

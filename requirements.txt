@@ -2,7 +2,6 @@
 # library only. There is nothing to install to run check_starter.py or
 # evaluate.py; no training, GPU, model download or LLM API is involved.
 #
-# Optional, only if we later add report figures or extra analysis on top of the
-# supplied harness — do NOT make the core scorer depend on these:
-# numpy>=1.24
-# matplotlib>=3.7
+# Optional independent rank-correlation verification (the full experiment
+# pipeline and bootstrap also run without third-party packages):
+# scipy>=1.10

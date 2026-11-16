@@ -28,8 +28,8 @@ from nsc import layer_capacities, layers, original_nsc, psi_mp
 EPS = 1e-12
 
 # FROZEN on the development split only (see experiments/frozen_config.json).
-# Chosen by the a-sweep in experiments/select.py; do not change after the
-# final split has been evaluated.
+# The a-sweep is reproduced in experiments/select_alpha.py. Final evaluation
+# uses the development-selected value.
 ALPHA = 0.0
 
 
@@ -65,16 +65,16 @@ def reweighted_nsc(config, alpha, weighting="prefix"):
         raise ValueError("alpha must be finite")
     if weighting not in ("prefix", "position", "none"):
         raise ValueError("unknown weighting scheme")
-    capacities, prefix = prefix_weights(config)
+    if alpha == 0.0 or weighting == "none":
+        return original_nsc(config)
+    if weighting == "prefix":
+        capacities, weights = prefix_weights(config)
+    else:
+        capacities = layer_capacities(config)
+        length = len(capacities)
+        weights = [i / length for i in range(length)]  # (l-1)/L, 1-based l
     total = math.fsum(capacities)
     q = ffn_terms(config)
-    length = len(capacities)
-    if weighting == "prefix":
-        weights = prefix
-    elif weighting == "position":
-        weights = [i / length for i in range(length)]  # (l-1)/L, 1-based l
-    else:
-        weights = [0.0] * length
     return total + alpha * math.fsum(c * term for c, term in zip(weights, q))
 
 

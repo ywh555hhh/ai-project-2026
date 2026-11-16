@@ -285,7 +285,7 @@
         "30000000": 79,
         "50000000": 96
       },
-      "role": "held-out architecture test instances; evaluated once after freeze",
+      "role": "architecture holdout for evaluating the development-selected score and sensitivity settings",
       "size_controlled_pairs": 185,
       "total_parameters_range": [
         3748692.0,

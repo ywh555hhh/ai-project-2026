@@ -66,7 +66,7 @@ def build_manifest():
         ("development", "development_labels.json", "valid_ppl",
          "method development and a selection (only labels used for decisions)"),
         ("final", "final_labels.json", "test_ppl",
-         "held-out architecture test instances; evaluated once after freeze"),
+         "architecture holdout for evaluating the development-selected score and sensitivity settings"),
     ):
         keys = splits[split]
         totals = [resources[k]["total"] for k in keys]
@@ -162,6 +162,15 @@ def build_counterfactuals():
                     "variants": {"original": minimal(config),
                                  "reordered": permute(config, **kwargs)},
                 })
+            uniform = minimal(config)
+            uniform["n_head"] = [uniform["n_head"][0]] * uniform["n_layer"]
+            cases.append({
+                "case_id": f"{key}__uniform_heads_ffn_reversed",
+                "family": "uniform_heads_ffn_reversed", "source_config": key,
+                "hidden_width": width,
+                "note": "Constant heads isolate positional sensitivity with no head heterogeneity.",
+                "variants": {"original": uniform, "reordered": permute(uniform, reverse_ffn=True)},
+            })
 
     return {
         "generated_by": "experiments/dataset.py",
