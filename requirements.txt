@@ -5,3 +5,7 @@
 # Optional independent rank-correlation verification (the full experiment
 # pipeline and bootstrap also run without third-party packages):
 # scipy>=1.10
+#
+# Report figures only (experiments/plot_figures.py). The core harness in
+# nsc-starter/ still needs no third-party package:
+# matplotlib>=3.5

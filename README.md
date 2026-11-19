@@ -99,14 +99,16 @@ arithmetic, provenance and the full evaluation protocol.
 │   ├── expected_development.json# reference output for the unedited template
 │   └── data/                    # 200 configs, splits, labels, resources, provenance
 ├── experiments/                 # dataset, development selection, mechanism and evaluation
-│   └── data/                    # generated datasets and result tables (committed)
-├── figures/                     # figures are produced separately
+│   ├── data/                    # generated datasets and result tables (committed)
+│   └── plot_figures.py          # renders every report figure from experiments/data
+├── figures/                     # report figures (PNG + vector PDF) and caption sheet
 └── results/                     # generated result JSON (gitignored)
 ```
 
-The generic "Automated Heuristic Design" scaffold on `main` (`src/`,
-`scripts/`, placeholder `data/`) was removed on this branch because it belongs
-to a different project. `main` itself is unchanged.
+The first commit of this repository held a generic "Automated Heuristic
+Design" scaffold (`src/`, `scripts/`, placeholder `data/`); commit `dcef444`
+replaced it with this project's layout. `main` and `dev` currently point at
+the same commit.
 
 ## Setup and reproduction
 
@@ -136,6 +138,7 @@ python experiments/dataset.py
 python experiments/mechanism.py
 python experiments/evaluate_all.py
 python experiments/analyze.py
+python experiments/plot_figures.py
 ```
 
 The original development choice remains `a=0`. The extended experiments include
@@ -152,7 +155,7 @@ evaluator loads only the chosen split's label file. Expect seconds on an
 ordinary laptop. Complete result tables are saved under `experiments/data/`;
 official and extended evaluator outputs are saved under `results/`.
 
-Data for figures are provided without plotting code:
+`experiments/plot_figures.py` reads these three committed tables:
 
 - `evaluation_summary.json`: ranking, budget-selection metrics, per-architecture
   PPL and all method scores (`architecture_scores`), and cold/warm CPU timing
@@ -162,9 +165,42 @@ Data for figures are provided without plotting code:
   also include best-PPL distributions over the 200 trials, including random selection.
 - `mechanism_check.json`: synthetic permutation deltas and numerical identities.
 
-These files are under `experiments/data/`. Supplementary analysis reads this
-result table directly and checks that it matches the current scores and labels;
-it does not depend on the gitignored files in `results/`.
+These files are under `experiments/data/`. Supplementary analysis and the
+figures read this result table directly and check that it matches the current
+scores and labels; they do not depend on the gitignored files in `results/`.
+
+## Report figures
+
+`experiments/plot_figures.py` renders every figure of the final report from the
+committed result tables in `experiments/data/`. It reads no label file and
+recomputes no outcome: every number it draws is already reported in
+[EVALUATION.md](EVALUATION.md). Each figure is written as a 300 dpi PNG and as
+a vector PDF -- include the PDF in the report -- and the script also writes
+`figures/FIGURE_CAPTIONS.md`, a ready-to-paste caption sheet with LaTeX
+snippets.
+
+```bash
+python -m pip install matplotlib     # only the figures need a third-party package
+python experiments/plot_figures.py   # ~7 s, writes figures/*.png and figures/*.pdf
+python experiments/plot_figures.py --list
+python experiments/plot_figures.py --only fig1 fig5
+```
+
+| Figure | Content |
+|---|---|
+| `fig1_alpha_sweep` | Spearman $\rho$ over the $\alpha$ grid on both splits, with paired-bootstrap intervals |
+| `fig2_ranking_baselines` | All sixteen methods and baselines: all-pairs $\rho$ and restricted $\tau_b$ |
+| `fig3_mechanism_reorder` | Reorder sensitivity on the 41 synthetic cases, by family and head-only |
+| `fig4_nsc_flops_collinearity` | Recorded outcome and NSC score against reference FLOPs |
+| `fig5_selection_regret` | Budgeted selection and regret under the 10/20/30/50M parameter caps |
+| `fig6_decomposition` | The exact decomposition $T = U + P + R$ of the added term |
+| `fig7_scoring_cost` | Cold and warm scoring cost per method |
+
+The core harness in `nsc-starter/` stays standard-library only; matplotlib is
+needed for the figures alone. The palette is a restrained academic one -- blue,
+purple, green and orange on white with dark-grey ink, no rainbow -- and every
+series also varies its marker or line style, so the figures stay readable in
+greyscale and match the Times New Roman 12 pt report.
 
 ## Scope of the evidence
 
