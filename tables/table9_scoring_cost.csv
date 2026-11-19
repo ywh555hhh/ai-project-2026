@@ -1,0 +1,16 @@
+Method,Cold panel (ms),Warm panel (ms)
+"prefix 1.0, no $R$",431.291,5.927
+pos. control $\alpha = 0.5$,429.669,2.551
+prefix $\alpha = 0.25$,427.896,2.820
+pos. control $\alpha = 1.0$,427.610,2.874
+pos. control $\alpha = 0.25$,427.066,2.607
+ablation ($\alpha = 0$),426.295,1.601
+position-only ctrl ($\alpha = 0$),425.098,1.498
+"prefix 0.5, no $R$",424.562,5.807
+"prefix 0.25, no $R$",420.127,5.860
+prefix $\alpha = 1.0$,419.521,2.718
+prefix $\alpha = 0.5$,416.754,2.677
+original NSC,414.918,1.342
+"student (ours, $\alpha = 0$)",413.169,1.412
+position example,412.185,1.607
+reference FLOPs,0.881,0.877

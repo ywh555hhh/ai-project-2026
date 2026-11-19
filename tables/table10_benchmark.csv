@@ -1,0 +1,3 @@
+Split,Architectures,All pairs,Restr. pairs,Widths,Pools,Param. range,Label
+development,100,4950,180,25/25/26/24,24/65/83/96,5059475 - 58491823,valid_ppl
+final,100,4950,185,24/26/27/23,25/57/79/96,3748692 - 59374348,test_ppl

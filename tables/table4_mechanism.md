@@ -1,0 +1,20 @@
+**Mechanism check on the synthetic reorderings**
+
+Checks that the prefix term responds to layer order while the additive NSC does not, that the $a = 0$ ablation recovers the original score exactly, and that the resource estimates stay invariant under reordering. The synthetic configurations carry no trained outcomes, so this table tests sensitivity only and says nothing about predictive accuracy.
+
+| Check | Result | Note |
+|---|---|---|
+| Mechanism status | PASS | synthetic reorderings only |
+| Synthetic reorder cases | 41 | no trained outcomes |
+| Head-only cases | 8 | - |
+| Max $\lvert\Delta\rvert$ NSC reorder change | 0.000000000 | NSC is additive |
+| Max $\lvert\Delta\rvert$ prefix reorder change, $\alpha = 1$ | 100.189884 | - |
+| Max $\lvert\Delta\rvert$ head-only: prefix / position, $\alpha = 1$ | 1.862679 / 0.000000 | position ctrl blind to head-only |
+| Resource estimates invariant under reordering | True | under any reorder |
+| Single-layer $C_1 = 0$ limiting cases | 4 cases, all passed | prescribed $\alpha$, 4 widths |
+| Mechanism failures | 0 | - |
+| Homogeneous layers approach positional weights | True | $\epsilon$ correction |
+| Constant-head prefix/position identity | 9 cases | max error 2.10e-12 |
+| Max scorer reconstruction error | 4.55e-13 | - |
+
+- A reorder response alone is weaker evidence than a predictive result; see Tables 1-3 for the latter.

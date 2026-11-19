@@ -100,8 +100,10 @@ arithmetic, provenance and the full evaluation protocol.
 │   └── data/                    # 200 configs, splits, labels, resources, provenance
 ├── experiments/                 # dataset, development selection, mechanism and evaluation
 │   ├── data/                    # generated datasets and result tables (committed)
-│   └── plot_figures.py          # renders every report figure from experiments/data
+│   ├── plot_figures.py          # renders every report figure from experiments/data
+│   └── make_tables.py           # renders every report table from experiments/data
 ├── figures/                     # report figures (PNG + vector PDF) and caption sheet
+├── tables/                      # report tables (Markdown, LaTeX, CSV) and caption sheet
 └── results/                     # generated result JSON (gitignored)
 ```
 
@@ -139,6 +141,7 @@ python experiments/mechanism.py
 python experiments/evaluate_all.py
 python experiments/analyze.py
 python experiments/plot_figures.py
+python experiments/make_tables.py
 ```
 
 The original development choice remains `a=0`. The extended experiments include
@@ -155,7 +158,8 @@ evaluator loads only the chosen split's label file. Expect seconds on an
 ordinary laptop. Complete result tables are saved under `experiments/data/`;
 official and extended evaluator outputs are saved under `results/`.
 
-`experiments/plot_figures.py` reads these three committed tables:
+`experiments/plot_figures.py` and `experiments/make_tables.py` read these
+three committed tables:
 
 - `evaluation_summary.json`: ranking, budget-selection metrics, per-architecture
   PPL and all method scores (`architecture_scores`), and cold/warm CPU timing
@@ -201,6 +205,45 @@ needed for the figures alone. The palette is a restrained academic one -- blue,
 purple, green and orange on white with dark-grey ink, no rainbow -- and every
 series also varies its marker or line style, so the figures stay readable in
 greyscale and match the Times New Roman 12 pt report.
+
+## Report tables
+
+`experiments/make_tables.py` renders every table of the final report from the
+same committed result tables in `experiments/data/`. Like the figures, it
+reads no label file and recomputes no outcome: every value printed is already
+reported in [EVALUATION.md](EVALUATION.md). Each table is written three ways
+-- `tables/<name>.md` (Markdown, for Word or Google Docs), `tables/<name>.tex`
+(booktabs, for LaTeX) and `tables/<name>.csv` (a spreadsheet) -- and
+`tables/TABLES.md` collects all of them with their captions, LaTeX snippets
+and a note on what belongs in the four-page report.
+
+```bash
+python experiments/make_tables.py     # <1 s, writes tables/*
+python experiments/make_tables.py --list
+python experiments/make_tables.py --only table1 table3
+```
+
+| Table | Content | Protocol step |
+|---|---|---|
+| `table1_ranking_baselines` | Spearman $\rho$, Kendall $\tau_b$ and the restricted $\tau_b$ of all sixteen methods | ranking and size control |
+| `table2_alpha_sensitivity` | the $\alpha$ grid, the frozen development choice and its sensitivity analysis | method selection |
+| `table3_selection_ppl` | mean best selected PPL under each parameter cap and each $k$ | selection |
+| `table3_selection_regret` | mean regret of the same selections | selection |
+| `table4_mechanism` | the mechanism checks on the synthetic reorderings | mechanism check |
+| `table5_decomposition` | the exact decomposition $T = U + P + R$ | method analysis |
+| `table6_resource_controls` | successively stricter width, parameter, FLOPs and depth matching | size control |
+| `table7_within_width` | ranking quality inside each hidden-width group | size control |
+| `table8_bootstrap` | paired-architecture bootstrap on the $\rho$ contrasts | sensitivity |
+| `table9_scoring_cost` | cold and warm scoring cost per method | resource effects |
+| `table10_benchmark` | the panel and the split composition | data |
+
+The starter protocol asks for the baseline caps and both values of $k$ to
+remain in the final report, for the restricted pair count, for the score ties
+and for the standard deviation over the 200 random trials. All of them are in
+the tables above. The LaTeX output measures every table against the 16 cm text
+width of the prescribed A4 layout and scales a table that would overflow it, so
+no table runs into the margin. Tables the report does not need can simply be
+dropped: the full set is already in [EVALUATION.md](EVALUATION.md).
 
 ## Scope of the evidence
 

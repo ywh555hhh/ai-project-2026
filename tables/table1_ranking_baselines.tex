@@ -1,0 +1,31 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Spearman $\rho$ and Kendall $\tau_b$ against negative perplexity over all pairs, and the size-controlled restricted $\tau_b$ (same hidden width, total-parameter ratio $\min/\max \geq 0.90$), on both splits. The last column is the number of restricted pairs, which overlap and are not an independent sample. Score-only tied pairs: none, except one pair for reference FLOPs on the development split.}
+\label{tab:table1}
+\setlength{\tabcolsep}{4pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+Method & dev $\rho$ & dev $\tau_b$ & dev restr. $\tau_b$ & final $\rho$ & final $\tau_b$ & final restr. $\tau_b$ & restr. pairs d/f \\
+\midrule
+original NSC & 0.969745 & 0.861414 & 0.622222 & 0.965941 & 0.843232 & 0.329730 & 180/185 \\
+position example & 0.970069 & 0.865051 & 0.622222 & 0.968977 & 0.853333 & 0.318919 & 180/185 \\
+student (ours, $\alpha = 0$) & 0.969745 & 0.861414 & 0.622222 & 0.965941 & 0.843232 & 0.329730 & 180/185 \\
+ablation ($\alpha = 0$) & 0.969745 & 0.861414 & 0.622222 & 0.965941 & 0.843232 & 0.329730 & 180/185 \\
+position-only ctrl ($\alpha = 0$) & 0.969745 & 0.861414 & 0.622222 & 0.965941 & 0.843232 & 0.329730 & 180/185 \\
+prefix $\alpha = 0.25$ & 0.967909 & 0.858182 & 0.622222 & 0.965149 & 0.842424 & 0.329730 & 180/185 \\
+prefix $\alpha = 0.5$ & 0.966649 & 0.856566 & 0.633333 & 0.964200 & 0.840000 & 0.318919 & 180/185 \\
+prefix $\alpha = 1.0$ & 0.963432 & 0.850505 & 0.633333 & 0.961224 & 0.833939 & 0.297297 & 180/185 \\
+prefix 0.25, no $R$ & 0.967909 & 0.858182 & 0.622222 & 0.965149 & 0.842424 & 0.329730 & 180/185 \\
+prefix 0.5, no $R$ & 0.966649 & 0.856566 & 0.633333 & 0.964200 & 0.840000 & 0.318919 & 180/185 \\
+prefix 1.0, no $R$ & 0.963432 & 0.850505 & 0.633333 & 0.961224 & 0.833939 & 0.297297 & 180/185 \\
+pos. control $\alpha = 0.25$ & 0.968293 & 0.859394 & 0.644444 & 0.965269 & 0.842424 & 0.329730 & 180/185 \\
+pos. control $\alpha = 0.5$ & 0.966973 & 0.856566 & 0.622222 & 0.963612 & 0.838788 & 0.297297 & 180/185 \\
+pos. control $\alpha = 1.0$ & 0.963900 & 0.850505 & 0.622222 & 0.961608 & 0.834343 & 0.308108 & 180/185 \\
+reported params & 0.727873 & 0.575758 & 0.133333 & 0.741854 & 0.589495 & 0.275676 & 180/185 \\
+reference FLOPs & 0.967948 & 0.858471 & 0.622222 & 0.965101 & 0.842424 & 0.329730 & 180/185 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

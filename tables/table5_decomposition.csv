@@ -1,0 +1,3 @@
+Split,Max identity err.,Swaps,Max swap err.,Max reconstr. err.,Median $\lvert R\rvert/T$,Max $\lvert R\rvert/T$,Same ranks w/o $R$
+development,5.35e-13,826,2.06e-12,1.82e-12,0.00990%,0.27260%,True/True/True
+final,3.84e-13,844,3.10e-12,1.82e-12,0.00786%,0.23557%,True/True/True
